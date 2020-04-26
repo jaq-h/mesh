@@ -13,7 +13,7 @@ class Login extends Component {
             // &scope=${scopes.join("%20")}
             // &response_type=token
             // &show_dialog=true`}
-            href="http://localhost:3001/api/auth"
+            href="/api/auth"
           >
             Login with spotify
           </a>
