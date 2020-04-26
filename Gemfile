@@ -15,11 +15,13 @@ gem 'puma', '~> 4.1'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'rest-client'
+gem 'jwt'
+gem "figaro"
 # ActiveAdmin https://blog.heroku.com/a-rock-solid-modern-web-stack
 gem 'devise'
 gem 'activeadmin'
-
+gem 'rack-cors'
 group :production do
   # Use postgres as the database for production
   gem 'pg'

@@ -1,51 +1,51 @@
 class UsersController < ApiController
-  before_action :set_user, only: [:show, :update, :destroy]
+  # before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
-  def index
-    @users = User.all
-
-    render json: @users
-  end
-
-  # GET /users/1
-  def show
-    render json: @user
-  end
+  # def index
+  #   @users = User.all
+  #
+  #   render json: @users
+  # end
+  #
+  # # GET /users/1
+  # def show
+  #   render json: @user
+  # end
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    auth_params = SpotifyApiAdapter.login(params[:code])
+    user_data = SpotifyApiAdapter.getUserData(auth_params["access_token"])
 
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    user = User.find_or_create_by(user_params(user_data))
+    img_url = user_data["images"][0] ? user_data["images"][0]["url"] : nil
+
+    #encodeAccess = issue_token({token: auth_params["access_token"]})
+    #encodeRefresh = issue_token({token: auth_params["refresh_token"]})
+
+    user.update(profile_img_url: img_url, access_token: auth_params["access_token"], refresh_token: auth_params["refresh_token"])
+
+    render json: user.to_json(:except => [:access_token, :refresh_token, :created_at, :updated_at])
+
+
   end
 
   # PATCH/PUT /users/1
-  def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
-  end
 
   # DELETE /users/1
-  def destroy
-    @user.destroy
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+    # def set_user
+    #   @user = User.find(params[:id])
+    # end
 
     # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.require(:user).permit(:username, :password)
+    def user_params (user_data)
+      params = {
+        display_name: user_data["display_name"],
+        spotify_url: user_data["external_urls"]["spotify"],
+      }
     end
 end
