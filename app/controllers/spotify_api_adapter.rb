@@ -18,7 +18,7 @@ class SpotifyApiAdapter
     body = body_params.dup
     body[:grant_type] = "authorization_code"
     body[:code] = code
-    body[:redirect_uri] = ENV['REDIRECT_URI']
+    body[:redirect_uri] = ENV['REDIRECT_URL']
     puts body
     auth_response = RestClient.post(urls["auth"], body)
     JSON.parse(auth_response.body)

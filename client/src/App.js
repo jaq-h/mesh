@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
+Link,
 } from 'react-router-dom'
 import './App.css';
 import Redirect from './Redirect';
