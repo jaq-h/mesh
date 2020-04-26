@@ -9,7 +9,7 @@ const Redirect = ({handleCode}) => {
       }
       return initial;
     }, {});
-     console.log(hash["ttp://localhost:3000/redirect?code"]);
+     console.log(hash["redirect?code="]);
   handleCode(hash["ttp://localhost:3000/redirect?code"]);
   return null;
 }
