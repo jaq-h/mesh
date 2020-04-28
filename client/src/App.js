@@ -26,7 +26,7 @@ class App extends Component{
       Auth.login(code)
       .then(res=> {
         const currentUser = res
-        //console.log(res);
+        console.log(res);
         this.setState({currentUser}, this.props.history.push('/home'))
       });
     }
