@@ -8,7 +8,7 @@ const Redirect = ({handleCode}) => {
     //   }
     //   return initial;
     // }, {});
-     console.log(hash[1]);
+     //console.log(hash[1]);
   handleCode(hash[1]);
   return null;
 }

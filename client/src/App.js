@@ -36,7 +36,7 @@ class App extends Component{
           <div className="App">
           <Login currentUser={this.state.currentUser}/>
           <Route exact path="/redirect" component={() => (<Redirect handleCode={this.getUser}/> )} />
-          <Route exact path="/home" component={() => (  <Home currentUser={this.state.currentUser}/> )}  />
+          <Route exact path="/home" component={() => (  <Home currentUser={this.state.currentUser} history={this.props.history}/> )}  />
           </div>
 
         );

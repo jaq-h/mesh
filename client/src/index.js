@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom'
 
 const MyApp = () => (
+  // <CookieStore>
   <Router>
     <App/>
   </Router>
