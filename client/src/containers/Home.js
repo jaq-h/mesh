@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'semantic-ui-react'
 import Headers from "../Headers";
+import ControlBar from '../components/ControlBar.js'
 import DeviceList from '../components/DeviceList.js'
+import NowPlaying from '../components/NowPlaying.js'
 import YouTubePlayer from '../components/YouTubePlayer.js'
 import Script from 'react-load-script'
 import * as $ from "jquery";
@@ -33,7 +35,7 @@ class Home extends Component {
   componentDidMount(){
     console.log(this.state.currentUser);
      if(this.state.currentUser === undefined ){
-       window.fetch('http://localhost:3001/api/auth');
+       this.props.history.go('http://localhost:3001/api/auth');
     }
   }
 
@@ -56,7 +58,7 @@ class Home extends Component {
 
       // Playback status updates
       player.addListener('player_state_changed', state => {
-        this.state.playerState = state;
+        this.setState({'playerState': state});
          console.log(this.state.playerState);
        });
 
@@ -72,30 +74,42 @@ class Home extends Component {
       player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id);
       });
-
       player.connect();
       console.log(player);
-
-
       }
     });
   }
-
+  callVolume = (e) =>{
+    console.log(e);
+    $.ajax({
+      url: `https://api.spotify.com/v1/me/player/volume?volume_percent=${e.value}`,
+      type: "POST",
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
+      }
+    });
+  }
   callNext = () => {
     $.ajax({
       url: "https://api.spotify.com/v1/me/player/next",
       type: "POST",
       beforeSend: (xhr) => {
         xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
-      },
-
-      success: (data) => {
-        console.log(data);
+      }
+    });
+  }
+  callPrevious = () => {
+    $.ajax({
+      url: "https://api.spotify.com/v1/me/player/previous",
+      type: "POST",
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
       }
     });
   }
 
   callDevice = (device_id) => {
+    console.log(device_id);
     $.ajax({
       url: "https://api.spotify.com/v1/me/player/",
       type: "PUT",
@@ -125,7 +139,12 @@ class Home extends Component {
 
 
   render() {
-
+    const controlMethods = {
+      'play':this.callTogglePlay,
+      'skip':this.callNext,
+      'prev':this.callPrevious,
+      'setVolume':this.callVolume
+    }
     return (
 
       <div>
@@ -135,9 +154,9 @@ class Home extends Component {
         onLoad={this.handleScriptLoad}
       />
  
-        <h1> Welcome {this.state.currentUser.display_name}</h1>
-        <Button onClick={this.callNext}> <Icon name='arrow right'/></Button>
-        <Button onClick={this.callTogglePlay}> <Icon name='play'/></Button>
+        <h3> Welcome {this.state.currentUser.display_name}</h1>
+        <NowPlaying
+        <ControlBar actions={controlMethods} />
         <DeviceList token={this.state.currentUser.access_token} onClick={this.callDevice}/>
         <YouTubePlayer vidoeId={this.state.video.id} listType={this.state.video.type}/>
       </div>
@@ -148,6 +167,9 @@ class Home extends Component {
 
 export default Home;
 
+
+// <Button onClick={this.callNext}> <Icon name='arrow right'/></Button>
+// <Button onClick={this.callTogglePlay}> <Icon name='play'/></Button>
 
 // getCurrentlyPlaying(token) {
 //   // Make a call using the token

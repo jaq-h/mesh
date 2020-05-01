@@ -11,23 +11,34 @@ class DeviceList extends Component {
 
 
   }
+  handleClick = (e) => {
+    console.log(e.target.id);
+    this.props.onClick(e.target.id);
+  }
 
-  async componentDidUpdate(){
-        $.ajax({
-            url: "https://api.spotify.com/v1/me/player/devices",
-            type: "GET",
-            beforeSend: (xhr) => {
-              xhr.setRequestHeader("Authorization", "Bearer " + this.props.token);
-            },
+  fetchDevices = () =>{
+    $.ajax({
+        url: "https://api.spotify.com/v1/me/player/devices",
+        type: "GET",
+        beforeSend: (xhr) => {
+          xhr.setRequestHeader("Authorization", "Bearer " + this.props.token);
+        },
 
-            success: (data) => {
-              console.log(data.devices);
-             this.state.deviceList = data.devices.map((d) => <li key={d.id} >{d.name}</li>);
-             console.log(this.state.deviceList);
+        success: (data) => {
+        console.log(data);
+         let devices = data.devices.map((d) => <li onClick={this.handleClick.bind(this)} id={d.id} >{d.name}</li>);
+         devices.push()
+         this.setState({'deviceList': devices});
 
-            }
-        });
+         console.log(this.state.deviceList);
 
+        }
+    });
+
+  }
+
+   componentDidMount(){
+     this.fetchDevices();
 
   }
 
