@@ -20,8 +20,8 @@ class YouTubePlayer extends Component {
       autoplay: 1,
       controls: 1,
       enablejsapi: 1,
-      origin: 'localhost:3000/home',
-      loop: 1
+      listType:'search',
+      list:'projector'
       //listType: this.props.listType,
 
 
@@ -29,7 +29,9 @@ class YouTubePlayer extends Component {
     },
   };
 
-    return <YouTube videoId="oWqAf4eex14" opts={opts} onReady={this._onReady} />;
+    //return <YouTube videoId="n9nf5ShnRfk" opts={opts} onReady={this._onReady} />;
+
+    return <YouTube  opts={opts} onReady={this._onReady} />;
   }
 
 

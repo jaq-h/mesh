@@ -154,8 +154,8 @@ class Home extends Component {
         onLoad={this.handleScriptLoad}
       />
  
-        <h3> Welcome {this.state.currentUser.display_name}</h1>
-        <NowPlaying
+        <h3> Welcome {this.state.currentUser.display_name}</h3>
+        <NowPlaying player={this.state.playerState}/>
         <ControlBar actions={controlMethods} />
         <DeviceList token={this.state.currentUser.access_token} onClick={this.callDevice}/>
         <YouTubePlayer vidoeId={this.state.video.id} listType={this.state.video.type}/>

@@ -14,9 +14,14 @@ class ControlBar extends Component {
   render(){
     return(
       <div>
-       <Icon onClick={this.props.actions.prev} name='angle double left'/>
+      <Icon onClick={this.props.actions.shuffle} name='random'/>
+
+       <Icon onClick={this.props.actions.prev} name='step backward'/>
        <Icon onClick={this.props.actions.play} name='play'/>
-       <Icon onClick={this.props.actions.skip} name='angle double right'/>
+       <Icon onClick={this.props.actions.skip} name='step forward'/>
+       <Icon onClick={this.props.actions.loop} name='sync alternate'/>
+
+
        <Slider min={0} max={1} onChange={this.props.actions.setVolume.bind(this)}/>
       </div>
     );
