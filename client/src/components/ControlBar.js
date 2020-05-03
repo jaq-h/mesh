@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {  Icon } from 'semantic-ui-react'
-import Slider from '@material-ui/core/Slider';
 import DeviceList from './DeviceList.js'
 
 const iconStyles = {
