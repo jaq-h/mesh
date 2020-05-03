@@ -22,19 +22,18 @@ gem "figaro"
 gem 'devise'
 gem 'activeadmin'
 gem 'rack-cors'
-group :production do
-  # Use postgres as the database for production
-  gem 'pg'
-end
-
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+
+group :production do
+  # Use postgres as the database for production
+  gem 'pg'
+end
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

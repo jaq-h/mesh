@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   scope '/api' do
-    resources :users
     get 'auth', to: "sessions#create"
     post 'login', to: "users#create"
+    post 'playing', to: "users#show"
   end
   # namespace :api do
   #   get 'auth', to: "sessions#create"

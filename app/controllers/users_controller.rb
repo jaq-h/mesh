@@ -26,8 +26,16 @@ class UsersController < ApiController
 
     user.update(profile_img_url: img_url, access_token: auth_params["access_token"], refresh_token: auth_params["refresh_token"])
 
-    render json: user.to_json(:except => [:access_token, :refresh_token, :created_at, :updated_at])
+    render json: user.to_json(:except => [:refresh_token, :created_at, :updated_at])
 
+
+  end
+
+  def show
+      user = User.find_by(display_name: params[:display_name])
+      now_playing = SpotifyApiAdapter.currentlyPlaying(user.access_token)
+
+      render json: now_playing.to_json
 
   end
 

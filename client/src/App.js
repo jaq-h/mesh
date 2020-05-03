@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-Link,
+  Link,
+  withRouter,=
 } from 'react-router-dom'
 import './App.css';
 import Redirect from './Redirect';
@@ -25,7 +26,7 @@ class App extends Component{
       Auth.login(code)
       .then(res=> {
         const currentUser = res
-        //console.log(res);
+        console.log(res);
         this.setState({currentUser}, this.props.history.push('/home'))
       });
     }
@@ -33,9 +34,9 @@ class App extends Component{
   render() {
     return (
           <div className="App">
-          <Login currentUser={this.state.currentUser}/>
+          <Route exact path="/" component={() => ( <Login currentUser={this.state.currentUser}/> )} />
           <Route exact path="/redirect" component={() => (<Redirect handleCode={this.getUser}/> )} />
-          <Route exact path="/home" component={() => (  <Home currentUser={this.state.currentUser}/> )}  />
+          <Route exact path="/home" component={() => (  <Home currentUser={this.state.currentUser} history={this.props.history}/> )}  />
           </div>
 
         );
