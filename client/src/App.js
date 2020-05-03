@@ -21,7 +21,6 @@ class App extends Component{
     }
   }
 
-
     getUser = (code)  => {
       Auth.login(code)
       .then(res=> {
