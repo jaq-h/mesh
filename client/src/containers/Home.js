@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, Icon } from 'semantic-ui-react'
 import Headers from "../Headers";
 import ControlBar from '../components/ControlBar.js'
 import DeviceList from '../components/DeviceList.js'
@@ -147,17 +146,15 @@ class Home extends Component {
     }
     return (
 
-      <div>
+      <div className="Sesh">
       <Script
         url="https://sdk.scdn.co/spotify-player.js"
         onError={this.handleScriptError}
         onLoad={this.handleScriptLoad}
       />
- 
-        <h3> Welcome {this.state.currentUser.display_name}</h3>
         <NowPlaying player={this.state.playerState}/>
-        <ControlBar actions={controlMethods} />
-        <DeviceList token={this.state.currentUser.access_token} onClick={this.callDevice}/>
+        <ControlBar actions={controlMethods} player={this.state.playerState} token={this.state.currentUser.access_token} callDevice={this.callDevice} />
+
         <YouTubePlayer vidoeId={this.state.video.id} listType={this.state.video.type}/>
       </div>
     );
@@ -167,7 +164,7 @@ class Home extends Component {
 
 export default Home;
 
-
+  //<h3> Welcome {this.state.currentUser.display_name}</h3>
 // <Button onClick={this.callNext}> <Icon name='arrow right'/></Button>
 // <Button onClick={this.callTogglePlay}> <Icon name='play'/></Button>
 

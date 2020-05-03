@@ -4,6 +4,9 @@ import YouTube from 'react-youtube';
 class YouTubePlayer extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      videoId: 'q2fIWB8o-bs'
+    }
 
   }
 
@@ -12,26 +15,23 @@ class YouTubePlayer extends Component {
     event.target.playVideo();
   }
   render() {
-    const opts = {
-    //height: '100%',
-    width: '100%',
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-      controls: 1,
-      enablejsapi: 1,
-      listType:'search',
-      list:'projector'
-      //listType: this.props.listType,
-
-
-
-    },
-  };
-
+    let embed =  `https://www.youtube.com/embed/${this.state.videoId}?autoplay=1&origin=http://localhost:3000/home&modestbranding=1&disablekb=1&fs=0`
     //return <YouTube videoId="n9nf5ShnRfk" opts={opts} onReady={this._onReady} />;
 
-    return <YouTube  opts={opts} onReady={this._onReady} />;
+    return(
+    <div style={{
+
+        height:"100%",
+        width: "100%"
+        }}>
+      <iframe id="ytplayer"
+        type="text/html"
+
+
+        src={embed}
+        frameborder="0">
+        </iframe>
+    </div>);
   }
 
 
