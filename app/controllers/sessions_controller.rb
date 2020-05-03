@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class SessionsController < ApiController
   def create
     query_params = {
     client_id: ENV["CLIENT_ID"],
