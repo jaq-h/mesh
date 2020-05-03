@@ -10,7 +10,5 @@
     "deploy": "cp -a client/build/. public/",
     "heroku-postbuild": "yarn build && yarn deploy"
   },
-  "dependencies": {
-    "@material-ui/core": "^4.9.12"
-  }
+
 }

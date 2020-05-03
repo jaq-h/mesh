@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   #   get 'auth', to: "sessions#create"
   #   post 'login', to: "users#create"
   # end
+  get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 
   #active admin
   devise_for :admin_users, ActiveAdmin::Devise.config
