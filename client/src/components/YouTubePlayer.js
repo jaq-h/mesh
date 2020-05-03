@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import YouTube from 'react-youtube';
 
 class YouTubePlayer extends Component {
   constructor(props){
@@ -19,11 +18,9 @@ class YouTubePlayer extends Component {
     //return <YouTube videoId="n9nf5ShnRfk" opts={opts} onReady={this._onReady} />;
 
     return(
-    <div >
+    <div>
       <iframe id="ytplayer"
         type="text/html"
-
-
         src={embed}
         frameborder="0">
         </iframe>
