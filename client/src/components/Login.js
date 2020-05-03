@@ -3,22 +3,12 @@ import React, { Component } from 'react';
 class Login extends Component {
 
   render() {
+    let auth_url = 'https://warm-shelf-19183.herokuapp.com/api/auth'
     return (
       <div>
         <header className="App-header">
           <a className="btn btn--loginApp-link"
-<<<<<<< HEAD
-            // href={`${authEndpoint}
-            // ?client_id=${clientId}
-            // &redirect_uri=${redirectUri}
-            // &scope=${scopes.join("%20")}
-            // &response_type=token
-            // &show_dialog=true`}
-            href="/api/auth"
-          >
-=======
-            href="http://localhost:3001/api/auth" >
->>>>>>> 6a7ee9976f952609849b90c4f6916a927445bdbe
+            href={auth_url} >
             Login with spotify
           </a>
         </header>

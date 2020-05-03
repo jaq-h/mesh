@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  withRouter,=
+  withRouter,
 } from 'react-router-dom'
 import './App.css';
 import Redirect from './Redirect';
