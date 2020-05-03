@@ -46,9 +46,9 @@ class DeviceList extends Component {
     console.log(this.state.deviceList);
     return (
       <div>
-      <ul>
+
         {this.state.deviceList}
-        </ul>
+
       </div>
     );
   }

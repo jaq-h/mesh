@@ -19,11 +19,7 @@ class YouTubePlayer extends Component {
     //return <YouTube videoId="n9nf5ShnRfk" opts={opts} onReady={this._onReady} />;
 
     return(
-    <div style={{
-
-        height:"100%",
-        width: "100%"
-        }}>
+    <div >
       <iframe id="ytplayer"
         type="text/html"
 
