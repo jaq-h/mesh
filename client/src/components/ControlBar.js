@@ -2,15 +2,26 @@ import React, { Component } from 'react';
 import {  Icon } from 'semantic-ui-react'
 import DeviceList from './DeviceList.js'
 
-const iconStyles = {
-  marginRight: 24,
-};
 
 class ControlBar extends Component {
   constructor(props){
     super(props);
-    console.log(props);
+    // console.log(props);
+    this.state = {
+      showDevices: false,
+      showMusic: false,
+    };
+    this.toggleDevices = this.toggleDevices.bind(this);
+  }
 
+  // toggleMusic = () => {
+  //   this.setState(prevState =>({'showDevices': !this.prevState.showDevices}));
+  // }
+
+  toggleDevices(){
+    this.setState(state => ({
+      showDevices: !state.showDevices
+    }));
   }
 
   setButtons(){
@@ -40,6 +51,13 @@ class ControlBar extends Component {
       //   default:
       //
       //   }
+    }
+    else{
+
+      b.push( <Icon onClick={this.props.actions.prev} name='step backward'/> )
+      b.push( <Icon onClick={this.props.actions.play} name='play'/>)
+      b.push( <Icon onClick={this.props.actions.pause} name='pause'/>)
+      b.push( <Icon onClick={this.props.actions.skip} name='step forward'/> )
 
     }
     return b;
@@ -50,15 +68,20 @@ class ControlBar extends Component {
 
 
   render(){
-    let buttons = this.setButtons();
+    let controlButtons = this.setButtons();
     return(
       <div  className="Control-Bar">
-        {buttons}
-       <DeviceList token={this.props.token} onClick={this.props.callDevice}/>
+        <Icon onClick={this.toggleMusic} name='music'/>
+
+        {controlButtons}
+        <Icon onClick={this.toggleDevices} name='headphones'/>
+        <DeviceList show={this.state.showDevices} token={this.props.token} deviceClick={this.props.actions.device} />
       </div>
     );
   }
 }
 
 export default ControlBar;
+
+//  <MusicList show={this.state.showDevices} token={this.props.token} deviceClick={this.props.actions.device} />
 // <Slider min={0} max={1} onChange={this.props.actions.setVolume.bind(this)}/>

@@ -63,7 +63,7 @@ class Home extends Component {
 
       // Playback status updates
       player.addListener('player_state_changed', state => {
-        this.setState({'playerState': state});
+        this.setState({playerState: state});
          console.log(state);
        });
 
@@ -71,6 +71,7 @@ class Home extends Component {
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
         this.callDevice(device_id);
+        this.setState({thisDevice: device_id});
 
 
       });
@@ -79,7 +80,12 @@ class Home extends Component {
       player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id);
       });
+        player.setVolume(.01).then(()=>{console.log(player.getVolume); });
       player.connect();
+      player.getVolume().then(volume => {
+      let volume_percentage = volume * 100;
+      console.log(`The volume of the player is ${volume_percentage}%`);
+    });
       console.log(player);
       }
     });
@@ -175,14 +181,15 @@ class Home extends Component {
 
 
   render() {
-
+    console.log(this.state.thisDevice);
     const controlMethods = {
       'play':this.callPlay,
       'pause':this.callPause,
       'skip':this.callNext,
       'prev':this.callPrevious,
       'setVolume':this.callVolume,
-      'shuffle':this.callToggleShuffle
+      'shuffle':this.callToggleShuffle,
+      'device':this.callDevice,
     }
     return (
 
@@ -193,7 +200,7 @@ class Home extends Component {
         onLoad={this.handleScriptLoad}
       />
         <NowPlaying player={this.state.playerState}/>
-        <ControlBar actions={controlMethods} player={this.state.playerState} token={this.state.currentUser.access_token} callDevice={this.callDevice} />
+        <ControlBar actions={controlMethods} player={this.state.playerState} token={this.state.currentUser.access_token} />
 
         <YouTubePlayer vidoeId={this.state.video.id} listType={this.state.video.type}/>
       </div>
