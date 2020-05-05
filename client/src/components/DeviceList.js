@@ -5,7 +5,8 @@ class DeviceList extends Component {
   constructor(props){
     super(props);
     this.state = {
-       deviceList:  []
+       deviceList:  [],
+       playerDevice: null
      };
 
 
@@ -26,8 +27,8 @@ class DeviceList extends Component {
 
         success: (data) => {
         console.log(data);
-         let devices = data.devices.map((d) => <li onClick={this.handleClick.bind(this)} id={d.id} >{d.name}</li>);
-         devices.push()
+        let devices = data.devices.map((d) => <li onClick={this.handleClick.bind(this)} id={d.id} key={d.id}>{d.name}</li>);
+        // devices.push()
          this.setState({'deviceList': devices});
 
          console.log(this.state.deviceList);

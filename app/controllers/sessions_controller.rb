@@ -11,3 +11,5 @@ class SessionsController < ApplicationController
     redirect_to "#{url}?#{query_params.to_query}"
   end
 end
+
+#user-read-private user-read-playback-position user-top-read user-library-read user-read-currently-playing playlist-read-collaborative

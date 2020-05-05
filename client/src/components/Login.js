@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Login extends Component {
 
   render() {
-    let auth_url = 'https://warm-shelf-19183.herokuapp.com/api/auth'
+    let auth_url = 'http://localhost:3001/api/auth'
     return (
       <div>
         <header className="App-header">

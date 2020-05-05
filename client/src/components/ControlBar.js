@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {  Icon } from 'semantic-ui-react'
-import Slider from '@material-ui/core/Slider';
 import DeviceList from './DeviceList.js'
 
 const iconStyles = {
@@ -10,18 +9,51 @@ const iconStyles = {
 class ControlBar extends Component {
   constructor(props){
     super(props);
-
+    console.log(props);
 
   }
+
+  setButtons(){
+    console.log(this.props)
+    let b = [];
+    if(this.props.player)
+    {
+      this.props.player.shuffle ?
+        b.push( <Icon onClick={this.props.actions.shuffle} name='random'/>)
+      : b.push( <Icon onClick={this.props.actions.shuffle} name='arrows alternate horizontal'/>)
+
+      b.push( <Icon onClick={this.props.actions.prev} name='step backward'/> )
+
+      this.props.player.paused ?
+        b.push( <Icon onClick={this.props.actions.play} name='play circle outline'/>)
+      : b.push( <Icon onClick={this.props.actions.pause} name='pause circle outline'/>)
+
+      b.push( <Icon onClick={this.props.actions.skip} name='step forward'/> )
+
+      // switch(this.state.playerState.repeat_mode) {
+      //   case 0:
+      //       b.push( <Icon onClick={this.props.actions.loop} name='sync alternate'/>)
+      //       break;
+      //   case 1:
+      //       b.push( <Icon onClick={this.props.actions.loop} name='sync alternate'/>)
+      //     break;
+      //   default:
+      //
+      //   }
+
+    }
+    return b;
+  }
+
+
+
+
+
   render(){
+    let buttons = this.setButtons();
     return(
       <div  className="Control-Bar">
-      <Icon onClick={this.props.actions.shuffle} name='random'/>
-       <Icon onClick={this.props.actions.prev} name='step backward'/>
-       <Icon onClick={this.props.actions.play} name='play'/>
-       <Icon onClick={this.props.actions.skip} name='step forward'/>
-       <Icon onClick={this.props.actions.loop} name='sync alternate'/>
-       <Icon onClick={this.props.actions.queueMenu} name='list alternate'/>
+        {buttons}
        <DeviceList token={this.props.token} onClick={this.props.callDevice}/>
       </div>
     );
