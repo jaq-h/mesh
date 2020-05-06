@@ -6,7 +6,7 @@ class DeviceList extends Component {
     super(props);
     this.state = {
        deviceList:  [],
-       playerDevice: null
+
      };
 
 
@@ -39,12 +39,13 @@ class DeviceList extends Component {
   }
 
    componentDidUpdate(){
+     if(this.props.show){
      this.fetchDevices();
-
+   }
   }
 
   render(){
-    const style = !this.props.show ? {display: 'none'} : {display: 'inline'};
+    const style = !this.props.show ? {display: 'none', backgroundColor: 'blue'} : {display: 'inline',  backgroundColor: 'blue'};
     console.log(this.state.deviceList);
     return (
       <div style={style}>

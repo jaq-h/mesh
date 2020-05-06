@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {  Icon } from 'semantic-ui-react'
 import DeviceList from './DeviceList.js'
-
+import MusicList from './MusicList.js'
 
 class ControlBar extends Component {
   constructor(props){
@@ -12,15 +12,19 @@ class ControlBar extends Component {
       showMusic: false,
     };
     this.toggleDevices = this.toggleDevices.bind(this);
+    this.toggleMusic = this.toggleMusic.bind(this);
   }
 
-  // toggleMusic = () => {
-  //   this.setState(prevState =>({'showDevices': !this.prevState.showDevices}));
-  // }
-
+  toggleMusic(){
+    this.setState(state => ({
+      showMusic: !state.showMusic,
+      showDevices: false
+    }));
+  }
   toggleDevices(){
     this.setState(state => ({
-      showDevices: !state.showDevices
+      showDevices: !state.showDevices,
+      showMusic: false
     }));
   }
 
@@ -40,17 +44,19 @@ class ControlBar extends Component {
       : b.push( <Icon onClick={this.props.actions.pause} name='pause circle outline'/>)
 
       b.push( <Icon onClick={this.props.actions.skip} name='step forward'/> )
+      console.log(this.props.player.repeat_mode);
+      switch(this.props.player.repeat_mode) {
+        case 0:
+            b.push( <Icon id="context" onClick={this.props.actions.loop.bind(this)}  name='long arrow alternate right'/>);
+            break;
+        case 1:
+            b.push( <Icon id="track" onClick={this.props.actions.loop.bind(this)} name='sync alternate'/>);
+            break;
+        case 2:
+            b.push( <Icon id="off" onClick={this.props.actions.loop.bind(this)}  name='redo alternate'/>);
+          break;
 
-      // switch(this.state.playerState.repeat_mode) {
-      //   case 0:
-      //       b.push( <Icon onClick={this.props.actions.loop} name='sync alternate'/>)
-      //       break;
-      //   case 1:
-      //       b.push( <Icon onClick={this.props.actions.loop} name='sync alternate'/>)
-      //     break;
-      //   default:
-      //
-      //   }
+        }
     }
     else{
 
@@ -68,20 +74,21 @@ class ControlBar extends Component {
 
 
   render(){
-    let controlButtons = this.setButtons();
+    const controlButtons = this.setButtons();
     return(
       <div  className="Control-Bar">
         <Icon onClick={this.toggleMusic} name='music'/>
 
         {controlButtons}
-        <Icon onClick={this.toggleDevices} name='headphones'/>
-        <DeviceList show={this.state.showDevices} token={this.props.token} deviceClick={this.props.actions.device} />
+        <Icon onClick={this.toggleDevices} name={this.props.player ? 'headphones' : 'rss'}/>
+        <DeviceList show={this.state.showDevices} token={this.props.user.access_token} deviceClick={this.props.actions.device} />
+
       </div>
     );
   }
 }
 
 export default ControlBar;
-
+//  <MusicList show={this.state.showMusic} token={this.props.user.access_token} musicClick={this.props.actions.music} />
 //  <MusicList show={this.state.showDevices} token={this.props.token} deviceClick={this.props.actions.device} />
 // <Slider min={0} max={1} onChange={this.props.actions.setVolume.bind(this)}/>

@@ -35,10 +35,16 @@
 
 .Control-Bar {
   width: 100%;
-  height: 40vh;
+  height: auto;
   position: absolute;
   text-align: center;
    z-index:2;
+}
+
+.Device-List{
+  background-color: #282c34;
+  align-items: left;
+  justify-content: center;
 }
 
 #ytplayer {
