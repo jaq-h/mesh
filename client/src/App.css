@@ -41,8 +41,22 @@
    z-index:2;
 }
 
-.Device-List{
-  background-color: #282c34;
+.form{
+
+  padding:5;
+height: auto;
+width: auto;
+}
+
+.input{
+  background: rgba(0, 0, 0, 1);
+  /* padding:1; */
+  border-radius: 18px;
+  text-indent: 2;
+}
+
+#device{
+  background: rgba(255, 0, 255, 0.3);
   align-items: left;
   justify-content: center;
 }
@@ -52,7 +66,7 @@
    height:100%;
    position: fixed;
    padding:0;
-   border:0
+   border:0;
  }
 /* .YT-Player {
 

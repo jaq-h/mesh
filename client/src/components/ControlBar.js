@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {  Icon } from 'semantic-ui-react'
 import DeviceList from './DeviceList.js'
 import MusicList from './MusicList.js'
-
+import SearchBar from './SearchBar.js'
 class ControlBar extends Component {
   constructor(props){
     super(props);
@@ -55,6 +55,9 @@ class ControlBar extends Component {
         case 2:
             b.push( <Icon id="off" onClick={this.props.actions.loop.bind(this)}  name='redo alternate'/>);
           break;
+          default:
+          console.log('error');
+          break;
 
         }
     }
@@ -77,18 +80,20 @@ class ControlBar extends Component {
     const controlButtons = this.setButtons();
     return(
       <div  className="Control-Bar">
+
         <Icon onClick={this.toggleMusic} name='music'/>
 
         {controlButtons}
         <Icon onClick={this.toggleDevices} name={this.props.player ? 'headphones' : 'rss'}/>
         <DeviceList show={this.state.showDevices} token={this.props.user.access_token} deviceClick={this.props.actions.device} />
-
+        <MusicList show={this.state.showMusic} token={this.props.user.access_token} musicClick={this.props.actions.music} />
+        <SearchBar search={this.props.search} />
       </div>
     );
   }
 }
 
 export default ControlBar;
-//  <MusicList show={this.state.showMusic} token={this.props.user.access_token} musicClick={this.props.actions.music} />
+
 //  <MusicList show={this.state.showDevices} token={this.props.token} deviceClick={this.props.actions.device} />
 // <Slider min={0} max={1} onChange={this.props.actions.setVolume.bind(this)}/>

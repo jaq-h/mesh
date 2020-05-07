@@ -19,10 +19,7 @@ class Home extends Component {
       currentUser: this.props.currentUser,
       thisDevice: null,
       playerState: null,
-      video: {
-        id: 'oWqAf4eex14',
-        type: ''
-      }
+      youtubeSearch: null,
     }
 
     console.log(this.state.currentUser);
@@ -213,9 +210,14 @@ class Home extends Component {
     });
   }
 
+  searchVideo = (e) => {
+    console.log(e);
+    this.setState({youtubeSearch: e});
+
+  }
+
 
   render() {
-    console.log(this.state.thisDevice);
     const controlMethods = {
       'play':this.callPlay,
       'pause':this.callPause,
@@ -235,10 +237,9 @@ class Home extends Component {
         onError={this.handleScriptError}
         onLoad={this.handleScriptLoad}
       />
-        <NowPlaying player={this.state.playerState}/>
-        <ControlBar actions={controlMethods} player={this.state.playerState} user={this.state.currentUser}  />
+      <ControlBar actions={controlMethods} player={this.state.playerState} user={this.state.currentUser} search={this.searchVideo}  />
 
-        <YouTubePlayer vidoeId={this.state.video.id} listType={this.state.video.type}/>
+        <YouTubePlayer  search={this.state.youtubeSearch}/>
       </div>
     );
   }
@@ -246,6 +247,9 @@ class Home extends Component {
 }
 
 export default Home;
+
+// <NowPlaying player={this.state.playerState}/>
+//
 
   //<h3> Welcome {this.state.currentUser.display_name}</h3>
 // <Button onClick={this.callNext}> <Icon name='arrow right'/></Button>
