@@ -5,7 +5,8 @@ class DeviceList extends Component {
   constructor(props){
     super(props);
     this.state = {
-       deviceList:  []
+       deviceList:  [],
+
      };
 
 
@@ -13,7 +14,7 @@ class DeviceList extends Component {
   }
   handleClick = (e) => {
     console.log(e.target.id);
-    this.props.onClick(e.target.id);
+    this.props.deviceClick(e.target.id);
   }
 
   fetchDevices = () =>{
@@ -26,8 +27,8 @@ class DeviceList extends Component {
 
         success: (data) => {
         console.log(data);
-         let devices = data.devices.map((d) => <li onClick={this.handleClick.bind(this)} id={d.id} >{d.name}</li>);
-         devices.push()
+        let devices = data.devices.map((d) => <li className="device" onClick={this.handleClick.bind(this)} id={d.id} key={d.id}>{d.name}</li>);
+
          this.setState({'deviceList': devices});
 
          console.log(this.state.deviceList);
@@ -37,18 +38,20 @@ class DeviceList extends Component {
 
   }
 
-   componentDidMount(){
+   componentDidUpdate(){
+     if(this.props.show){
      this.fetchDevices();
-
+   }
   }
 
   render(){
+    const style = !this.props.show ? {display: 'none', backgroundColor: 'blue'} : {display: 'inline',  backgroundColor: 'blue'};
     console.log(this.state.deviceList);
     return (
-      <div>
-      <ul>
+      <div style={style}>
+
         {this.state.deviceList}
-        </ul>
+
       </div>
     );
   }

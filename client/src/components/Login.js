@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 class Login extends Component {
 
   render() {
+    let auth_url = 'http://localhost:3001/api/auth'
     return (
       <div>
         <header className="App-header">
           <a className="btn btn--loginApp-link"
-            href="http://localhost:3001/api/auth" >
+            href={auth_url} >
             Login with spotify
           </a>
         </header>

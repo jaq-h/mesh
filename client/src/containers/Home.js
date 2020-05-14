@@ -13,38 +13,36 @@ class Home extends Component {
     //console.log(props);
     // if(this.props.currentUser.access_token === undefined ){
     //   this.props.history.go('http://localhost:3001/api/auth');
-    // }
+
+
     this.state = {
       currentUser: this.props.currentUser,
+      thisDevice: null,
       playerState: null,
-      video: {
-        id: 'oWqAf4eex14',
-        type: ''
-      }
+      youtubeSearch: null,
     }
+
     console.log(this.state.currentUser);
-  //   fetch("http://localhost:3001/api/playing",{
-  //     method: "POST",
-  //     headers: Headers,
-  //     body:  JSON.stringify(this.props.currentUser)
-  //   }).then(res => res.json()).then(json => console.log(json));
-  //   console.log(JSON.stringify(this.state.currentUser));
+
   }
 
-  componentDidMount(){
+  componentDidUpdate(){
     console.log(this.state.currentUser);
-     if(this.state.currentUser === undefined ){
-       this.props.history.go('http://localhost:3001/api/auth');
-    }
+
   }
 
   handleScriptLoad = () => {
-    console.log(this.stae)
+    console.log(this.state.currentUser.access_token);
+    if(this.state.currentUser.access_token === undefined ){
+
+        window.location = "http://localhost:3001/api/auth"
+
+   }
   const interval = setInterval(() => {
     if ('Spotify' in window) {
       clearInterval(interval);
       const player = new window.Spotify.Player({
-        name: "Sesh",
+        name: "Mesh",
         getOAuthToken: cb => { cb(this.state.currentUser.access_token); }
       });
       player.addListener('initialization_error', ({ message }) => { console.error(message); });
@@ -57,14 +55,24 @@ class Home extends Component {
 
       // Playback status updates
       player.addListener('player_state_changed', state => {
-        this.setState({'playerState': state});
-         console.log(this.state.playerState);
+           this.setState({
+             playerState: state
+             // {
+             //    'context': state.context,
+             //    'paused': state.paused,
+             //    'repeat_mode': state.repeat_mode,
+             //    'shuffle': state.shuffle,
+             //  }
+
+          });
+          console.log(state);
        });
 
       // Ready
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
         this.callDevice(device_id);
+        this.setState({thisDevice: device_id});
 
 
       });
@@ -73,7 +81,12 @@ class Home extends Component {
       player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id);
       });
+        // player.setVolume(.01).then(()=>{console.log(player.getVolume); });
       player.connect();
+      // player.getVolume().then(volume => {
+      // let volume_percentage = volume * 100;
+      // console.log(`The volume of the player is ${volume_percentage}%`);
+        // });
       console.log(player);
       }
     });
@@ -85,6 +98,21 @@ class Home extends Component {
       type: "POST",
       beforeSend: (xhr) => {
         xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
+      }
+    });
+  }
+
+  callLoop = (e) => {
+
+    $.ajax({
+      url: `https://api.spotify.com/v1/me/player/repeat?state=${e.target.id}`,
+      type: "PUT",
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
+      },
+      //data: JSON.stringify({state: state})
+      success: () => {
+        console.log("success");
       }
     });
   }
@@ -122,7 +150,22 @@ class Home extends Component {
     });
   }
 
-  callTogglePlay = () => {
+  callMusic = (id) => {
+    console.log(id);
+    $.ajax({
+      url: "https://api.spotify.com/v1/me/player/",
+      type: "PUT",
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
+      }
+      //data: JSON.stringify({device_ids: [device_id]})
+      // success: (data) => {
+      //   console.log(data);
+      // }
+    });
+  }
+
+  callPlay = () => {
     $.ajax({
       url: "https://api.spotify.com/v1/me/player/play",
       type: "PUT",
@@ -136,13 +179,55 @@ class Home extends Component {
     });
   }
 
+  callPause = () => {
+    $.ajax({
+      url: "https://api.spotify.com/v1/me/player/pause",
+      type: "PUT",
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
+      },
+      //data: JSON.stringify({device_ids: [device_id]}),
+      success: (data) => {
+        console.log(data);
+      }
+    });
+  }
+
+  callToggleShuffle = () => {
+
+    let shuffle = !this.state.playerState.shuffle;
+    console.log(shuffle);
+    $.ajax({
+      url: `https://api.spotify.com/v1/me/player/shuffle?state=${shuffle}`,
+      type: "PUT",
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.currentUser.access_token);
+      },
+
+      success: (data) => {
+        console.log(data);
+      }
+    });
+  }
+
+  searchVideo = (e) => {
+    console.log(e);
+    this.setState({youtubeSearch: e});
+
+  }
+
 
   render() {
     const controlMethods = {
-      'play':this.callTogglePlay,
+      'play':this.callPlay,
+      'pause':this.callPause,
       'skip':this.callNext,
       'prev':this.callPrevious,
-      'setVolume':this.callVolume
+      'setVolume':this.callVolume,
+      'shuffle':this.callToggleShuffle,
+      'device':this.callDevice,
+      'music':this.callMusic,
+      'loop':this.callLoop,
     }
     return (
 
@@ -152,10 +237,9 @@ class Home extends Component {
         onError={this.handleScriptError}
         onLoad={this.handleScriptLoad}
       />
-        <NowPlaying player={this.state.playerState}/>
-        <ControlBar actions={controlMethods} player={this.state.playerState} token={this.state.currentUser.access_token} callDevice={this.callDevice} />
+      <ControlBar actions={controlMethods} player={this.state.playerState} user={this.state.currentUser} search={this.searchVideo}  />
 
-        <YouTubePlayer vidoeId={this.state.video.id} listType={this.state.video.type}/>
+        <YouTubePlayer  search={this.state.youtubeSearch}/>
       </div>
     );
   }
@@ -164,9 +248,19 @@ class Home extends Component {
 
 export default Home;
 
+// <NowPlaying player={this.state.playerState}/>
+//
+
   //<h3> Welcome {this.state.currentUser.display_name}</h3>
 // <Button onClick={this.callNext}> <Icon name='arrow right'/></Button>
 // <Button onClick={this.callTogglePlay}> <Icon name='play'/></Button>
+
+//   fetch("http://localhost:3001/api/playing",{
+//     method: "POST",
+//     headers: Headers,
+//     body:  JSON.stringify(this.props.currentUser)
+//   }).then(res => res.json()).then(json => console.log(json));
+//   console.log(JSON.stringify(this.state.currentUser));
 
 // getCurrentlyPlaying(token) {
 //   // Make a call using the token
