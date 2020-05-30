@@ -9,8 +9,8 @@
 # production:
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
-CLIENT_ID: 'a2850d06818b453a8a3cb23f417c2c80'
-CLIENT_SECRET: '7e56ee89d4544c41a7f96b3c0ef4d0df'
+CLIENT_ID: '4ffe11d5bc884fcdbe93a209e742e51c'
+CLIENT_SECRET: '11c1483dd70d4549b20fb828746fa122'
 REDIRECT_URI: 'http://localhost:3000/redirect'
 SOME_TIME: ""
 SOME_SECRET: ""

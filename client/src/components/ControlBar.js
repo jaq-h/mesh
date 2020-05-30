@@ -28,6 +28,15 @@ class ControlBar extends Component {
     }));
   }
 
+  style(){
+    return(
+      {
+        color: '#ffffff'
+      }
+    
+    );
+  }
+
   setButtons(){
     console.log(this.props)
     let b = [];
@@ -57,7 +66,7 @@ class ControlBar extends Component {
           break;
           default:
           console.log('error');
-          break;
+          
 
         }
     }
@@ -81,12 +90,11 @@ class ControlBar extends Component {
     return(
       <div  className="Control-Bar">
 
-        <Icon onClick={this.toggleMusic} name='music'/>
+        <Icon onClick={this.toggleMusic} name='spotify'/>
 
         {controlButtons}
-        <Icon onClick={this.toggleDevices} name={this.props.player ? 'headphones' : 'rss'}/>
+        <Icon onClick={this.toggleDevices} name='headphones'/>
         <DeviceList show={this.state.showDevices} token={this.props.user.access_token} deviceClick={this.props.actions.device} />
-        <MusicList show={this.state.showMusic} token={this.props.user.access_token} musicClick={this.props.actions.music} />
         <SearchBar search={this.props.search} />
       </div>
     );
@@ -97,3 +105,4 @@ export default ControlBar;
 
 //  <MusicList show={this.state.showDevices} token={this.props.token} deviceClick={this.props.actions.device} />
 // <Slider min={0} max={1} onChange={this.props.actions.setVolume.bind(this)}/>
+//<MusicList show={this.state.showMusic} token={this.props.user.access_token} musicClick={this.props.actions.music} />
