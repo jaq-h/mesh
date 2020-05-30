@@ -27,6 +27,6 @@
 /config/master.key
 
 /public
-
+/client
 # Ignore application configuration
 /config/application.yml
