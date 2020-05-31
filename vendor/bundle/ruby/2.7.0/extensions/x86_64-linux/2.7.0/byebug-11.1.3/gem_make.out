@@ -1,0 +1,19 @@
+current directory: /mnt/c/Users/jack/dev/mesh/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+/home/jaq/.rvm/rubies/ruby-2.7.1/bin/ruby -I /home/jaq/.rvm/rubies/ruby-2.7.1/lib/ruby/2.7.0 -r ./siteconf20200530-5930-1b8s1ck.rb extconf.rb
+creating Makefile
+
+current directory: /mnt/c/Users/jack/dev/mesh/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /mnt/c/Users/jack/dev/mesh/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.so
+
+current directory: /mnt/c/Users/jack/dev/mesh/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -m 0755 byebug.so ./.gem.20200530-5930-12wm6aa/byebug
