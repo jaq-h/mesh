@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Login extends Component {
 
   render() {
-    let auth_url = 'http://localhost:3001/api/auth'
+    let auth_url = 'http://mesh-meida.herokuapp.com/api/auth'
     return (
       <div>
         <header className="App-header">
