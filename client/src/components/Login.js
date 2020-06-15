@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class Login extends Component {
 
   render() {
-    let auth_url = 'http://localhost:3001/api/auth'
+    const auth_url = 'http://localhost:3001/api/auth'
+    const background = 'https://get.pxhere.com/photo/pattern-line-metal-material-circle-sheet-font-background-design-mesh-grid-shape-drawn-regularly-804360.jpg'
     return (
       <div>
         <header className="App-header">
@@ -12,6 +13,9 @@ class Login extends Component {
             Login with spotify
           </a>
         </header>
+        <div >
+        <h1 style={{'text-align':'center'}}> Welcome to Mesh </h1>
+        </div>
       </div>
     );
   }

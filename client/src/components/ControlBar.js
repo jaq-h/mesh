@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {  Icon } from 'semantic-ui-react'
 import DeviceList from './DeviceList.js'
 import MusicList from './MusicList.js'
-import SearchBar from './SearchBar.js'
 class ControlBar extends Component {
   constructor(props){
     super(props);
@@ -10,6 +9,7 @@ class ControlBar extends Component {
     this.state = {
       showDevices: false,
       showMusic: false,
+      showSearch: false,
     };
     this.toggleDevices = this.toggleDevices.bind(this);
     this.toggleMusic = this.toggleMusic.bind(this);
@@ -80,14 +80,15 @@ class ControlBar extends Component {
     const controlButtons = this.setButtons();
     return(
       <div  className="Control-Bar">
-
-        <Icon onClick={this.toggleMusic} name='music'/>
+        <div className="buttons" >
+        <Icon onClick={this.toggleMusic} name='spotify'/>
 
         {controlButtons}
-        <Icon onClick={this.toggleDevices} name={this.props.player ? 'headphones' : 'rss'}/>
-        <DeviceList show={this.state.showDevices} token={this.props.user.access_token} deviceClick={this.props.actions.device} />
-        <MusicList show={this.state.showMusic} token={this.props.user.access_token} musicClick={this.props.actions.music} />
-        <SearchBar search={this.props.search} />
+        <Icon onClick={this.toggleDevices} name={'headphones'}/>
+        </div>
+        <DeviceList  show={this.state.showDevices} token={this.props.user.access_token} deviceClick={this.props.actions.device} />
+        <MusicList  show={this.state.showMusic} user={this.props.user}  />
+
       </div>
     );
   }

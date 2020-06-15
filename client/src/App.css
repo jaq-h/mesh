@@ -34,6 +34,9 @@
 }
 
 .Control-Bar {
+  /* display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 10vh auto; */
   width: 100%;
   height: auto;
   position: absolute;
@@ -41,15 +44,26 @@
    z-index:2;
 }
 
+.buttons {
+
+}
+
 .form{
 
-  padding:5;
+  padding:2;
 height: auto;
 width: auto;
+position: absolute;
+margin: auto;
+top: 0px;
+ z-index:3;
 }
 
 .input{
   background: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  margin: auto;
+  width: 32vw;
   /* padding:1; */
   border-radius: 18px;
   text-indent: 2;

@@ -4,11 +4,14 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      // hover: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleMouseHover = this.handleMouseHover.bind(this);
+
 
   }
 
@@ -23,12 +26,30 @@ class SearchBar extends Component {
     this.props.search(this.state.value);
   }
  }
+ // handleMouseHover(){
+ //    this.setState(state => ({
+ //      hover: !state.hover
+ //
+ //    }));
+ //  }
+
+  // handleMouseHover() {
+  //   this.setState(this.toggleHoverState);
+  // }
+  //
+  // toggleHoverState(state) {
+  //   return {
+  //     hover: !state.hover,
+  //   };
+  // }
+
+
 
 
   render() {
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <input className="input" type="text" value={this.state.value} placeHolder="Search YouTube" onChange={this.handleChange} />
+      <form className="form"  onSubmit={this.handleSubmit}>
+        <input className="input"  type="text" value={this.state.value} placeHolder="Search YouTube..." onChange={this.handleChange} />
       </form>
     );
   }

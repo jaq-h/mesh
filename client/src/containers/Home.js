@@ -4,6 +4,8 @@ import ControlBar from '../components/ControlBar.js'
 import DeviceList from '../components/DeviceList.js'
 import NowPlaying from '../components/NowPlaying.js'
 import YouTubePlayer from '../components/YouTubePlayer.js'
+import SearchBar from '../components/SearchBar.js'
+
 import Script from 'react-load-script'
 import * as $ from "jquery";
 
@@ -240,6 +242,7 @@ class Home extends Component {
       <ControlBar actions={controlMethods} player={this.state.playerState} user={this.state.currentUser} search={this.searchVideo}  />
 
         <YouTubePlayer  search={this.state.youtubeSearch}/>
+        <SearchBar search={this.searchVideo} />
       </div>
     );
   }
